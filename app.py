@@ -19,7 +19,7 @@ server = app.server
 
 # Plotly mapbox public token
 # "pk.eyJ1IjoicGxvdGx5bWFwYm94IiwiYSI6ImNrOWJqb2F4djBnMjEzbG50amg0dnJieG4ifQ.Zme1-Uzoi75IaFbieBDl3A"
-mapbox_access_token = os.getenv('MAPBOX_API_KEY')
+# mapbox_access_token = os.getenv('MAPBOX_API_KEY')
 
 # Dictionary of important locations in New York
 list_of_locations = {
@@ -35,8 +35,8 @@ list_of_locations = {
 }
 
 # Initialize data frame
-datafile='feb2021e149th.csv'
-df=pd.read_csv(datafile, sep='\t')
+datafile='data.zip'
+df = pd.read_csv(datafile)
 
 
 df["Date/Time"] = pd.to_datetime(df["timestamp"], format="%Y-%m-%d %H:%M") #todo verify/update format
@@ -441,24 +441,15 @@ def update_graph(datePicked, selectedData):
                     ),
                 ),
             ),
-            # # Plot of important locations on the map
-            # Scattermapbox(
-            #     lat=[list_of_locations[i]["lat"] for i in list_of_locations],
-            #     lon=[list_of_locations[i]["lon"] for i in list_of_locations],
-            #     mode="markers",
-            #     hoverinfo="text",
-            #     text=[i for i in list_of_locations],
-            #     marker=dict(size=8, color="#ffa0a0"),
-            # ),
+
         ],
         layout=Layout(
             autosize=True,
             margin=go.layout.Margin(l=0, r=35, t=0, b=0),
             showlegend=False,
             mapbox=dict(
-                accesstoken=mapbox_access_token,
                 center=dict(lat=latInitial, lon=lonInitial),  # 40.7272  # -73.991251
-                style="dark",
+                style="carto-positron",
                 bearing=bearing,
                 zoom=zoom,
             ),
